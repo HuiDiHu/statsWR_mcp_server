@@ -1,0 +1,10 @@
+[project]
+name = "statswr-mcp-server"
+version = "0.1.0"
+description = "An MCP server that allows AI agents to interact with the statsWR api"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.9.4",
+]
