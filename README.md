@@ -1,0 +1,1 @@
+statsWR mcp server
