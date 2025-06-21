@@ -24,6 +24,7 @@
 ```
 STATSWR_API_BASE_URL = <STATSWR OFFICIAL API BASE URL>/api/v1
 DEFAULT_TIMEOUT = 60
+...
 ```
 
 **Local Testing:**
