@@ -4,7 +4,7 @@
 1) uv venv
 2) source .venv/Scripts/activate
 3) make setup
-4) update claude_desktop_config.json:
+4) update claude_desktop_config.json: 
 ```
 {
   "mcpServers": {
@@ -25,3 +25,8 @@
 STATSWR_API_BASE_URL = <STATSWR OFFICIAL API BASE URL>/api/v1
 DEFAULT_TIMEOUT = 60
 ```
+
+**Local Testing:**
+1) restart cluade desktop
+2) enable statsWR MCP server in the model setting
+3) interact with the model and verify MCP server is being used
