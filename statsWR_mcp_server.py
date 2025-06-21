@@ -4,23 +4,10 @@ from pathlib import Path
 from typing import Any
 from mcp.server.fastmcp import FastMCP
 
+from requests.champion import *
+
 # Initialize FastMCP server
 mcp = FastMCP("statsWR")
-
-def load_sample_champion(champion_label:str = "AATROX") -> dict[str, Any] | None:
-    file_path = 'data/sample_champions.json'
-
-    try:
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-
-        if champion_label in data:
-            return data[champion_label]
-        else:
-            return None
-    except Exception as e:
-        print("An Error has occured:", e)
-        return None
 
 # start of MCP endpoints
 @mcp.tool()
@@ -32,9 +19,16 @@ async def get_champion_data_from_label(champion_label: str) -> str:
         champion_label: Capitalized champion full name. 
                         If a champion's name consists of multiple words, connect them using "_".
                         For example: "Aatrox" -> "AATROX", "Master Yi" -> "MASTER_YI".
+    
+    Return:
+        A stringified list of dictionaries will be returned. Each dictionary represent a champion's
+        gameplay data history for a specific role (indicated by the "role" field). Each number corresponds
+        to a different lane assignment for the champion as specified by the dictionary below. Keep in mind 'Baron'
+        can also be 'Top' and 'Dragon can be 'ADC' or 'AD Carry'.
+        {1: 'Baron', 2: 'Jungle', 3: 'Mid', 4: 'Dragon', 5: 'Support'}
     """
 
-    data = load_sample_champion(champion_label)
+    data = await get_all_data_for_single_champ_all_roles(champion_label)
 
     if data:
         return str(data)
