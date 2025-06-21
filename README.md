@@ -1,14 +1,27 @@
-statsWR mcp server
+# statsWR mcp server
 
-
-setup:
-1) source .venv/bin/activate
-2) make setup
-
-windows setup (additional steps on https://modelcontextprotocol.io/quickstart/server#windows): 
+**Windows Setup:** (additional steps on https://modelcontextprotocol.io/quickstart/server#windows)
 1) uv venv
 2) source .venv/Scripts/activate
-3) uv add mcp[cli] httpx
-4) code $env:AppData\Claude\claude_desktop_config.json (follow directions in link)
-5) pip install .
-6) (may need to open task manager and manually terminate claude before opening it again for the MCP server to show up)
+3) make setup
+4) update claude_desktop_config.json:
+```
+{
+  "mcpServers": {
+    "statsWR": {
+      "command": "/Path/to/uv",
+      "args": [
+        "--directory",
+        "/Path/to/Project/Root/Directory",
+        "run",
+        "src/statsWR_mcp_server.py"
+      ]
+    }
+  }
+}
+```
+5) create and setup .env file in the project's root directory
+```
+STATSWR_API_BASE_URL = <STATSWR OFFICIAL API BASE URL>/api/v1
+DEFAULT_TIMEOUT = 60
+```
