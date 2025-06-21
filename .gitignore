@@ -9,6 +9,9 @@ temp.py
 # Virtual environments
 .venv
 
+# Environment variables
+.env
+
 **/temp/**/*
 **/__pycache__/**/*
 .vscode/
