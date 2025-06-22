@@ -1,5 +1,6 @@
-from .api_config import api_config
+from .api_config import _api_config
 
-__all__ = [
-    'api_config'
-]
+class Config:
+    API_CONFIG = _api_config
+
+config = Config()

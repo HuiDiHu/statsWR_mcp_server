@@ -2,14 +2,14 @@
 
 import httpx
 from typing import Any
-from mcp_configs import api_config
+from mcp_configs import config
 
 async def get_all_data_for_single_champ_all_roles(champion_label:str) -> list[dict[str, Any]] | None:
-    url = f"{api_config.BASE_URL}/champions/{champion_label}" # first part of path is from vercel deployment, everything afer /v1 is for statsWR route
+    url = f"{config.API_CONFIG.BASE_URL}/champions/{champion_label}" # first part of path is from vercel deployment, everything afer /v1 is for statsWR route
     
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(url, timeout=api_config.DEFAULT_TIMEOUT, headers=api_config.DEFAULT_HEADERS)
+            response = await client.get(url, timeout=config.API_CONFIG.DEFAULT_TIMEOUT, headers=config.API_CONFIG.DEFAULT_HEADERS)
             response.raise_for_status()
             res = response.json()
 
@@ -23,11 +23,11 @@ async def get_all_data_for_single_champ_all_roles(champion_label:str) -> list[di
 
 
 async def get_most_recent_data_for_all_champs_by_role(role:int = 0) -> list[dict[str, Any]] | None:
-    url = f"{api_config.BASE_URL}/champions/lanes/latest/{role}"
+    url = f"{config.API_CONFIG.BASE_URL}/champions/lanes/latest/{role}"
 
     async with httpx.AsyncClient() as client:
         try:
-            response = await client.get(url, timeout=api_config.DEFAULT_TIMEOUT, headers=api_config.DEFAULT_HEADERS)
+            response = await client.get(url, timeout=config.API_CONFIG.DEFAULT_TIMEOUT, headers=config.API_CONFIG.DEFAULT_HEADERS)
             response.raise_for_status()
             res = response.json()
 

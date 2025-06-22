@@ -1,6 +1,6 @@
 import httpx
 from typing import Any
-from mcp_configs import api_config
+from mcp_configs import config
 
 async def get_ability_descriptions_for_single_champ(champion_label:str) -> list[dict[str, Any]] | None:
     url = ""

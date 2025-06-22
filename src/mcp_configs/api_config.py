@@ -13,4 +13,4 @@ class Api_Config:
         "Content-Type": "application/json"
     }
 
-api_config = Api_Config()
+_api_config = Api_Config()
