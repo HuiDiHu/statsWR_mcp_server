@@ -5,6 +5,7 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 
 from api_requests.champion import *
+from web_scraping import *
 from prompt_library import plib
 
 # Initialize FastMCP server
@@ -71,6 +72,44 @@ async def get_most_recent_champ_data_for_all_champs_in_certain_role(role: int) -
         return '</System>the role is incorrect. It must be between 0 and 5 inclusive. Please ask the user to pick a valid role</System>'
     
     data = await get_most_recent_data_for_all_champs_by_role(role)
+
+    res = ""
+    if data:
+        res += str(data)
+    return res
+
+@mcp.tool()
+async def get_matchups_for_champion_for_all_viable_roles(champion_name: str) -> str:
+    """
+    Get matchup data for a specific WildRift champion to see who they are weak/strong against for all their viable roles
+
+    Args:
+        champion_name: A champion's name in the game. This parameter should be set to the champions name in all lowercase. 
+        if the champion has a space in their name, replace it with a '-' character. Also remove all ' characters.
+        Example: Dr. Mundo -> dr-mundo
+        Example: Ms Fortune -> ms-fortune
+        Example: Kai'Sa -> kaisa
+        If the user provides a champion name that doesn't exist or is misspelled, 
+        suggest the closest matching champion names and ask for clarification. 
+        Common misspellings include: 'Yi' for 'Master Yi', 'Kai Sa' for 'Kai'Sa', etc.
+
+    Return:
+        A list of dictionaries will be returned. Each dictionary has a _role_id key where each value corresponds
+        to a different lane assignment for the champion as specified by the dictionary below. Keep in mind 'Baron'
+        can also be 'Top' and 'Dragon can be 'ADC' or 'AD Carry'.
+        {1: 'Baron', 2: 'Jungle', 3: 'Mid', 4: 'Dragon', 5: 'Support'}
+        example return object: 
+        result = [
+                    {
+                        '_role_id': an integer from 1-5,
+                        'counters': [champions who counter {champion_name}],
+                        'good_matchups': [champions who are countered by {champion_name}]
+                    },
+                    ...
+                 ]
+    """
+    
+    data = await scrape_matchups(champion_name)
 
     res = ""
     if data:
