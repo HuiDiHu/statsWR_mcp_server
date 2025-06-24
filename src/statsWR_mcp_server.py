@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 from mcp.server.fastmcp import FastMCP
 
-from requests.champion import *
+from api_requests.champion import *
 from prompt_library import plib
 
 # Initialize FastMCP server
