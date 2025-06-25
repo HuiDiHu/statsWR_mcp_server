@@ -103,10 +103,13 @@ async def get_matchups_for_champion_for_all_viable_roles(champion_name: str) -> 
                     {
                         '_role_id': an integer from 1-5,
                         'counters': [champions who counter {champion_name}],
-                        'good_matchups': [champions who are countered by {champion_name}]
+                        'good_matchups': [champions who are countered by {champion_name}],
+                        'counter_strategy': a string with info on how to counter the champion
                     },
                     ...
                  ]
+        If the user is asking how to play the champion, then use the 'counter_strategy' value as a reference and
+        say the opposite
     """
     
     data = await scrape_matchups(champion_name)

@@ -9,6 +9,8 @@ import time
 # uv pip install beautifulsoup4
 # uv pip install lxml
 
+# https://www.crummy.com/software/BeautifulSoup/bs4/doc/#find-next-siblings-and-find-next-sibling
+
 def scrape_website(url):
     req = requests.get(url)
     return req.text
@@ -22,7 +24,7 @@ async def scrape_matchups(champion_name):
     result = []
     gallery_counter = 1
 
-    valid_roles = {'Top':1, 'Jungler':2, 'Mid':3, 'Bot':4, 'Support':5}
+    valid_roles = {'Top':1, 'Jungler':2, 'Mid':3, 'Bot':4, 'Bottom':4, 'Support':5}
     necessary_paragraph = soup.find_all('p', class_="has-text-align-center")
     for paragraph in necessary_paragraph:
         if paragraph.text in valid_roles:
@@ -42,7 +44,17 @@ async def scrape_matchups(champion_name):
             good_matchups_figcaptions = good_matchups_container.find_all('figcaption')
             counters = list(map(lambda x: x.a.text, counters_figcaptions))
             good_matchups = list(map(lambda x: x.a.text, good_matchups_figcaptions))
-            data = {'_role_id':valid_roles[paragraph.text], 'counters':counters, 'good_matchups':good_matchups}
+
+            parent = good_matchups_container.find_parent('div').find_parent('div')
+            sibling = parent.find_next_sibling()
+            info = []
+            while sibling and sibling.name == 'p': # returns 'p' 
+                info.append(sibling.text)
+                sibling = sibling.find_next_sibling()
+            if info and info[-1] in valid_roles:
+                info.pop()
+                
+            data = {'_role_id':valid_roles[paragraph.text], 'counters':counters, 'good_matchups':good_matchups, 'counter_strategy':" ".join(info)}
             result.append(data)
 
     return result
