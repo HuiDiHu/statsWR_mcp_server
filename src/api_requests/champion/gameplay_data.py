@@ -23,7 +23,7 @@ async def get_all_data_for_single_champ_all_roles(champion_label:str) -> list[di
 
 
 async def get_most_recent_data_for_all_champs_by_role(role:int = 0) -> list[dict[str, Any]] | None:
-    url = f"{config.API_CONFIG.BASE_URL}/champions/lanes/latest/{role}"
+    url = f"{config.API_CONFIG.BASE_URL}/champions/lanes/{role}"
 
     async with httpx.AsyncClient() as client:
         try:
