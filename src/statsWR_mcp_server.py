@@ -26,7 +26,8 @@ try:
             "statsWR",
             host="0.0.0.0", 
             port=int(os.getenv('PORT', 8127)),
-            log_level="DEBUG"
+            log_level="DEBUG",
+            sse_path="/mcp/"
         )
     logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
@@ -261,12 +262,7 @@ async def health_check() -> str:
 if __name__ == "__main__":
     try:
         logger.info("Starting MCP server...")
-        import asyncio
-        asyncio.run(
-            mcp.run(
-                transport='sse'
-            )
-        )
+        mcp.run(transport="sse")
     except KeyboardInterrupt:
         logger.info("Server shutdown requested by user")
     except Exception as e:
