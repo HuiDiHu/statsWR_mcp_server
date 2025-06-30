@@ -264,7 +264,7 @@ if __name__ == "__main__":
         import asyncio
         asyncio.run(
             mcp.run(
-                transport='streamable-http'
+                transport='sse'
             )
         )
     except KeyboardInterrupt:
