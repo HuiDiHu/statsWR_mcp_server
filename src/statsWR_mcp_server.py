@@ -21,7 +21,12 @@ logger = logging.getLogger(__name__)
 load_dotenv(find_dotenv())
 
 try:
-    mcp = FastMCP("statsWR", host="0.0.0.0", port=int(os.getenv('PORT', 8127)), streamable_http_path="/mcp/")
+    mcp = FastMCP(
+            "statsWR",
+            host="0.0.0.0", 
+            port=int(os.getenv('PORT', 8127)),
+            log_level="DEBUG"
+        )
     logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
     logger.error(f"Failed to initialize MCP server: {e}")
@@ -246,7 +251,7 @@ async def health_check() -> str:
             "status": "healthy",
             "message": "MCP server is running normally",
             "server_name": "statsWR",
-            "timestamp": str(pd.Timestamp.now()) if 'pd' in globals() else "timestamp_unavailable"
+            "timestamp": datetime.now().isoformat()
         })
     except Exception as e:
         logger.error(f"Health check failed: {e}")
@@ -255,8 +260,12 @@ async def health_check() -> str:
 if __name__ == "__main__":
     try:
         logger.info("Starting MCP server...")
-
-        mcp.run(transport='streamable-http')
+        import asyncio
+        asyncio.run(
+            mcp.run(
+                transport='streamable-http'
+            )
+        )
     except KeyboardInterrupt:
         logger.info("Server shutdown requested by user")
     except Exception as e:
