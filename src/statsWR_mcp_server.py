@@ -14,7 +14,7 @@ from prompt_library import plib
 load_dotenv(find_dotenv())
 
 # Initialize FastMCP server
-mcp = FastMCP("statsWR", streamable_http_path="/")
+mcp = FastMCP("statsWR", port=os.getenv('PORT'), streamable_http_path="/")
 
 # start of MCP endpoints
 @mcp.tool()
