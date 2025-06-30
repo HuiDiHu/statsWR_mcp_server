@@ -14,7 +14,7 @@ from prompt_library import plib
 load_dotenv(find_dotenv())
 
 # Initialize FastMCP server
-mcp = FastMCP("statsWR", host="0.0.0.0", port=int(os.getenv('PORT')), streamable_http_path="/")
+mcp = FastMCP("statsWR", host="0.0.0.0", port=int(os.getenv('PORT')), sse_path="/")
 
 # start of MCP endpoints
 @mcp.tool()
@@ -126,4 +126,4 @@ async def get_matchups_for_champion_for_all_viable_roles(champion_name: str) -> 
 
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='streamable-http')
+    mcp.run(transport='sse')
