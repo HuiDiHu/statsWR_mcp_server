@@ -10,5 +10,6 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "requests>=2.32.4",
     "beautifulsoup4>=4.13.4",
-    "lxml>=5.4.0"
+    "lxml>=5.4.0",
+    "dotenv>=0.9.9"
 ]

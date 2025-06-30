@@ -1,15 +1,20 @@
+import os
 import json
 import httpx
 from pathlib import Path
 from typing import Any
 from mcp.server.fastmcp import FastMCP
+from dotenv import load_dotenv, find_dotenv
+
 
 from api_requests.champion import *
 from web_scraping import *
 from prompt_library import plib
 
+load_dotenv(find_dotenv())
+
 # Initialize FastMCP server
-mcp = FastMCP("statsWR")
+mcp = FastMCP("statsWR", host="0.0.0.0", port=int(os.getenv('PORT')))
 
 # start of MCP endpoints
 @mcp.tool()
@@ -121,4 +126,4 @@ async def get_matchups_for_champion_for_all_viable_roles(champion_name: str) -> 
 
 if __name__ == "__main__":
     # Initialize and run the server
-    mcp.run(transport='stdio')
+    mcp.run(transport='streamable-http')
