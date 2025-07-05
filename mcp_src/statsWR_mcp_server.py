@@ -24,10 +24,7 @@ load_dotenv(find_dotenv())
 try:
     mcp = FastMCP(
             "statsWR",
-            host="0.0.0.0", 
-            port=int(os.getenv('PORT', 8127)),
-            log_level="DEBUG",
-            streamable_http_path="/mcp/"
+            stateless_http=True
         )
     logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
