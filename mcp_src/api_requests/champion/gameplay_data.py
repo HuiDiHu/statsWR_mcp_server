@@ -2,7 +2,7 @@
 
 import httpx
 from typing import Any
-from mcp_configs import config
+from mcp_src.mcp_configs import config
 
 async def get_all_data_for_single_champ_all_roles(champion_label:str) -> list[dict[str, Any]] | None:
     url = f"{config.API_CONFIG.BASE_URL}/champions/{champion_label}" # first part of path is from vercel deployment, everything afer /v1 is for statsWR route

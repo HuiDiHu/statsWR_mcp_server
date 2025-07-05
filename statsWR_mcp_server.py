@@ -9,9 +9,9 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv, find_dotenv
 
-from api_requests.champion import *
-from web_scraping import *
-from prompt_library import plib
+from mcp_src.api_requests.champion import *
+from mcp_src.web_scraping import *
+from mcp_src.prompt_library import plib
 
 logging.basicConfig(
     level=logging.INFO,
@@ -27,7 +27,7 @@ try:
             host="0.0.0.0", 
             port=int(os.getenv('PORT', 8127)),
             log_level="DEBUG",
-            sse_path="/mcp/"
+            streamable_http_path="/mcp/"
         )
     logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
@@ -262,7 +262,7 @@ async def health_check() -> str:
 if __name__ == "__main__":
     try:
         logger.info("Starting MCP server...")
-        mcp.run(transport="sse")
+        mcp.run(transport="streamable-http")
     except KeyboardInterrupt:
         logger.info("Server shutdown requested by user")
     except Exception as e:
