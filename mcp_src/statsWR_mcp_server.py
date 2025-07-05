@@ -22,10 +22,7 @@ logger = logging.getLogger(__name__)
 load_dotenv(find_dotenv())
 
 try:
-    mcp = FastMCP(
-            "statsWR",
-            stateless_http=True
-        )
+    mcp = FastMCP("statsWR")
     logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
     logger.error(f"Failed to initialize MCP server: {e}")
