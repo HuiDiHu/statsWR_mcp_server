@@ -9,9 +9,9 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv, find_dotenv
 
-from mcp_src.api_requests.champion import *
-from mcp_src.web_scraping import *
-from mcp_src.prompt_library import plib
+from .api_requests.champion import *
+from .web_scraping import *
+from .prompt_library import plib
 
 logging.basicConfig(
     level=logging.INFO,
