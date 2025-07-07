@@ -26,7 +26,6 @@ try:
             "statsWR",
             stateless_http=True
         )
-    logger.info(f"MCP server initialized on port {os.getenv('PORT', 8127)}")
 except Exception as e:
     logger.error(f"Failed to initialize MCP server: {e}")
     raise
