@@ -14,7 +14,7 @@
         "--directory",
         "/Path/to/Project/Root/Directory",
         "run",
-        "src/statsWR_mcp_server.py"
+        "mcp_src/statsWR_mcp_server.py"
       ]
     }
   }
@@ -24,6 +24,7 @@
 ```
 STATSWR_API_BASE_URL = <STATSWR OFFICIAL API BASE URL>/api/v1
 DEFAULT_TIMEOUT = 60
+PORT = 18517
 ...
 ```
 
