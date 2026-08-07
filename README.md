@@ -1,4 +1,5 @@
 # statsWR mcp server
+### StatsWR API: https://github.com/HuiDiHu/statsWR
 
 **Windows Setup:** (additional steps on https://modelcontextprotocol.io/quickstart/server#windows)
 1) uv venv
